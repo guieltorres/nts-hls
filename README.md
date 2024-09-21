@@ -27,6 +27,9 @@ This project is a video listing and playback application developed using React N
 3. Start the app
 
    ```bash
-    npx expo start
-    npx json-server --watch db.json -p 3001
+   npx expo start
+   ```
+
+   ```bash
+   npx json-server --watch db.json -p 3001
    ```
