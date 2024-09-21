@@ -33,3 +33,11 @@ This project is a video listing and playback application developed using React N
    ```bash
    npx json-server --watch db.json -p 3001
    ```
+
+### Testing
+
+To run the tests and check the coverage, run the following command:
+
+```bash
+   npm test
+```
