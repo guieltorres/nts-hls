@@ -11,7 +11,7 @@ import { NavigationType } from "../routes";
 import { useSelector } from "../state/store";
 import ThumbsUpIcon from "./elements/ThumbsUpIcon";
 import ViewsIcon from "./elements/ViewsIcon";
-import { useVideoActions } from "../hooks/useVideosActions";
+import { useVideosActions } from "../hooks/useVideosActions";
 
 const { width } = Dimensions.get("window");
 
@@ -23,7 +23,7 @@ type VideoCardProps = {
 
 const VideoCard: React.FC<VideoCardProps> = ({ index }) => {
   const navigation = useNavigation<NavigationType>();
-  const { likedVideos } = useVideoActions();
+  const { likedVideos } = useVideosActions();
 
   const video = useSelector((state) => state.videos.data[index]);
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import VideoDetailsScreen from "../index";
-import { useVideoActions } from "../../../hooks/useVideosActions";
+import { useVideosActions } from "../../../hooks/useVideosActions";
 import { useSelector } from "../../../state/store";
 import { RouteType } from "../../../routes";
 import { createMockVideo } from "../../../jest/__mocks__/createMockVideo";
@@ -16,7 +16,7 @@ describe("VideoDetailsScreen", () => {
     (useSelector as jest.Mock).mockImplementation((callback) =>
       callback({ videos: { data: [mockVideo] } })
     );
-    (useVideoActions as jest.Mock).mockReturnValue({
+    (useVideosActions as jest.Mock).mockReturnValue({
       likedVideos: { "1": false },
       likeVideo: jest.fn(),
       viewVideo: jest.fn(),
@@ -44,7 +44,7 @@ describe("VideoDetailsScreen", () => {
       key: "test-key",
       name: "VideoDetails",
     };
-    const { viewVideo } = useVideoActions();
+    const { viewVideo } = useVideosActions();
 
     render(<VideoDetailsScreen route={route} />);
 
@@ -57,7 +57,7 @@ describe("VideoDetailsScreen", () => {
       key: "test-key",
       name: "VideoDetails",
     };
-    const { likeVideo } = useVideoActions();
+    const { likeVideo } = useVideosActions();
 
     const { getByTestId } = render(<VideoDetailsScreen route={route} />);
 

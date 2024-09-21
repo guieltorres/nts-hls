@@ -3,9 +3,11 @@ import { useVideos } from "../../../hooks/useVideos";
 import { render } from "../../../jest/utils";
 import { useSelector } from "../../../state/store";
 import { waitFor } from "@testing-library/react-native";
+import { useVideosActions } from "../../../hooks/useVideosActions";
 
 jest.mock("../../../hooks/useVideos");
 jest.mock("../../../state/store");
+jest.mock("../../../hooks/useVideosActions");
 
 describe("HomeScreen", () => {
   beforeEach(() => {
@@ -18,6 +20,7 @@ describe("HomeScreen", () => {
   it("should display the loader when loading", () => {
     (useVideos as jest.Mock).mockReturnValue({ loading: true });
     (useSelector as jest.Mock).mockReturnValue([]);
+    (useVideosActions as jest.Mock).mockReturnValue({ likedVideos: {} });
 
     const screen = render(<HomeScreen />);
 
@@ -43,6 +46,9 @@ describe("HomeScreen", () => {
     (useSelector as jest.Mock).mockImplementation((callback) =>
       callback({ videos: { data: mockVideos } })
     );
+    (useVideosActions as jest.Mock).mockReturnValue({
+      likedVideos: { "1": false },
+    });
 
     const screen = render(<HomeScreen />);
 
@@ -53,6 +59,7 @@ describe("HomeScreen", () => {
   it("should display the empty state message when no videos are found", async () => {
     (useVideos as jest.Mock).mockReturnValue({ loading: false });
     (useSelector as jest.Mock).mockReturnValue([]);
+    (useVideosActions as jest.Mock).mockReturnValue({ likedVideos: {} });
 
     const screen = render(<HomeScreen />);
 

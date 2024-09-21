@@ -11,7 +11,7 @@ import { ResizeMode, Video } from "expo-av";
 import { RouteType } from "../../routes";
 import VideoPoster from "../../components/VideoPoster";
 import { Paragraph, Title } from "react-native-paper";
-import { useVideoActions } from "../../hooks/useVideosActions";
+import { useVideosActions } from "../../hooks/useVideosActions";
 import { useSelector } from "../../state/store";
 import Animated, {
   useSharedValue,
@@ -31,7 +31,7 @@ export default function VideoDetailsScreen({ route }: VideoDetailsScreenProps) {
   const { index } = route.params;
   const video = useSelector((state) => state.videos.data[index]);
   const videoHeight = width * (9 / 16);
-  const { likedVideos, likeVideo, viewVideo } = useVideoActions();
+  const { likedVideos, likeVideo, viewVideo } = useVideosActions();
 
   const scale = useSharedValue(1);
 

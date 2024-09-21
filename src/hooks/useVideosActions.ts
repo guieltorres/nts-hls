@@ -2,7 +2,7 @@ import { updateVideoById } from "../services/videos";
 import { actions, useDispatch, useSelector } from "../state/store";
 import { Video } from "../types/videos";
 
-export const useVideoActions = () => {
+export const useVideosActions = () => {
   const dispatch = useDispatch();
   const { likedVideos } = useSelector((state) => state.videos);
 

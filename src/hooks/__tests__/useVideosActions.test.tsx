@@ -1,4 +1,4 @@
-import { useVideoActions } from "../useVideosActions";
+import { useVideosActions } from "../useVideosActions";
 import { updateVideoById } from "../../services/videos";
 import { actions, useDispatch, useSelector } from "../../state/store";
 import { createMockVideo } from "../../jest/__mocks__/createMockVideo";
@@ -8,7 +8,7 @@ jest.mock("../../state/store");
 
 const mockedVideo = createMockVideo();
 
-describe("useVideoActions", () => {
+describe("useVideosActions", () => {
   const dispatch = jest.fn();
   const likedVideos = { video1: true };
 
@@ -22,13 +22,13 @@ describe("useVideoActions", () => {
   });
 
   it("should like a video and dispatch toggleLikeVideo action", async () => {
-    const { likeVideo } = useVideoActions();
+    const { likeVideo } = useVideosActions();
     (updateVideoById as jest.Mock).mockResolvedValueOnce(undefined);
 
     await likeVideo(mockedVideo);
 
     expect(updateVideoById).toHaveBeenCalledWith(mockedVideo.id, {
-      likes: mockedVideo.likes,
+      likes: mockedVideo.likes + 1,
     });
     expect(dispatch).toHaveBeenCalledWith(
       actions.videos.toggleLikeVideo(mockedVideo.id)
@@ -36,7 +36,7 @@ describe("useVideoActions", () => {
   });
 
   it("should handle errors in likeVideo", async () => {
-    const { likeVideo } = useVideoActions();
+    const { likeVideo } = useVideosActions();
     const consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation();
     const errorMessage = "Error liking video";
     (updateVideoById as jest.Mock).mockRejectedValueOnce(
@@ -50,7 +50,7 @@ describe("useVideoActions", () => {
   });
 
   it("should view a video and dispatch incrementViewVideo action", async () => {
-    const { viewVideo } = useVideoActions();
+    const { viewVideo } = useVideosActions();
     (updateVideoById as jest.Mock).mockResolvedValueOnce(undefined);
 
     await viewVideo(mockedVideo);
@@ -64,7 +64,7 @@ describe("useVideoActions", () => {
   });
 
   it("should handle errors in viewVideo", async () => {
-    const { viewVideo } = useVideoActions();
+    const { viewVideo } = useVideosActions();
     const consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation();
     const errorMessage = "Error viewing video";
     (updateVideoById as jest.Mock).mockRejectedValueOnce(
