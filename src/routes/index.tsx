@@ -26,11 +26,7 @@ export default function Routes() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          animation: "fade_from_bottom",
-        }}
-      >
+      <Stack.Navigator screenOptions={{}}>
         <Stack.Screen
           name="Home"
           component={HomeScreen}
@@ -43,6 +39,10 @@ export default function Routes() {
           component={VideoDetailsScreen}
           options={{
             title: "Video Details",
+            presentation: "formSheet",
+            animationTypeForReplace: "push",
+            animation: "slide_from_bottom",
+            headerShown: true,
           }}
         />
       </Stack.Navigator>

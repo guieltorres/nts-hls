@@ -7,7 +7,6 @@ export const initialState: VideoSlice = {
   watchedVideos: {},
 };
 
-// Helper function to update video data
 const updateVideoData = (
   data: Video[],
   videoId: string,
@@ -23,17 +22,14 @@ const slice = createSlice({
     update(state, action: PayloadAction<Video[]>) {
       state.data = action.payload;
     },
-    // não funciona apropriadamente pois o video não possui uma flag de like por usuário
     toggleLikeVideo(state, action: PayloadAction<string>) {
       const videoId = action.payload;
       const isLiked = !state.likedVideos[videoId];
       state.likedVideos[videoId] = isLiked;
 
       state.data = updateVideoData(state.data, videoId, (video) => {
-        const currentLikes = video.likes || 0;
-        const newLikes = isLiked
-          ? currentLikes + 1
-          : Math.max(currentLikes - 1, 0);
+        const currentLikes = video.likes;
+        const newLikes = isLiked ? currentLikes + 1 : currentLikes - 1;
         return {
           ...video,
           likes: newLikes,

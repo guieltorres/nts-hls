@@ -11,7 +11,6 @@ import { ResizeMode, Video } from "expo-av";
 import { RouteType } from "../../routes";
 import VideoPoster from "../../components/VideoPoster";
 import { Paragraph, Title } from "react-native-paper";
-import Entypo from "@expo/vector-icons/Entypo";
 import { useVideoActions } from "../../hooks/useVideosActions";
 import { useSelector } from "../../state/store";
 import Animated, {
@@ -19,6 +18,8 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
 } from "react-native-reanimated";
+import ThumbsUpIcon from "../../components/elements/ThumbsUpIcon";
+import ViewsIcon from "../../components/elements/ViewsIcon";
 
 const { width } = Dimensions.get("window");
 
@@ -80,9 +81,8 @@ export default function VideoDetailsScreen({ route }: VideoDetailsScreenProps) {
           <View style={styles.iconContainer}>
             <TouchableOpacity onPress={handleLike} testID="like-button">
               <Animated.View style={animatedStyle}>
-                <Entypo
-                  name="thumbs-up"
-                  size={24}
+                <ThumbsUpIcon
+                  style={styles.icon}
                   color={likedVideos[video.id] ? "#5160d2" : "gray"}
                 />
               </Animated.View>
@@ -90,7 +90,7 @@ export default function VideoDetailsScreen({ route }: VideoDetailsScreenProps) {
             <Text style={styles.text}>{video.likes}</Text>
           </View>
           <View style={styles.iconContainer}>
-            <Entypo name="eye" size={24} color="gray" />
+            <ViewsIcon style={styles.icon} />
             <Text style={styles.text}>{video.views}</Text>
           </View>
         </View>
@@ -118,6 +118,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   iconContainer: {
+    flexDirection: "row",
     alignItems: "center",
+  },
+  icon: {
+    marginRight: 8,
   },
 });

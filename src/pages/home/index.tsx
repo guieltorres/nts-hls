@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet, View } from "react-native";
 import { Paragraph } from "react-native-paper";
-import { VideoCard } from "../../components/VideoCard";
+import VideoCard from "../../components/VideoCard";
 import { useVideos } from "../../hooks/useVideos";
 import VideoCardLoader from "../../components/VideoCardLoader";
 import { useSelector } from "../../state/store";

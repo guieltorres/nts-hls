@@ -8,8 +8,9 @@ export const useVideoActions = () => {
 
   const likeVideo = async (video: Video) => {
     try {
+      const isLiked = !likedVideos[video.id];
       const updatedVideo = await updateVideoById(video.id, {
-        likes: video.likes,
+        likes: isLiked ? video.likes + 1 : Math.max(video.likes - 1, 0),
       });
       dispatch(actions.videos.toggleLikeVideo(video.id));
     } catch (err: any) {

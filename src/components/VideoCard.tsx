@@ -9,6 +9,9 @@ import { Card, Paragraph } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationType } from "../routes";
 import { useSelector } from "../state/store";
+import ThumbsUpIcon from "./elements/ThumbsUpIcon";
+import ViewsIcon from "./elements/ViewsIcon";
+import { useVideoActions } from "../hooks/useVideosActions";
 
 const { width } = Dimensions.get("window");
 
@@ -18,8 +21,10 @@ type VideoCardProps = {
   index: number;
 };
 
-export const VideoCard: React.FC<VideoCardProps> = ({ index }) => {
+const VideoCard: React.FC<VideoCardProps> = ({ index }) => {
   const navigation = useNavigation<NavigationType>();
+  const { likedVideos } = useVideoActions();
+
   const video = useSelector((state) => state.videos.data[index]);
 
   return (
@@ -40,9 +45,11 @@ export const VideoCard: React.FC<VideoCardProps> = ({ index }) => {
           <Card.Content style={styles.content}>
             <Paragraph>{video.description}</Paragraph>
           </Card.Content>
-          <Card.Actions>
-            <Paragraph>{`Likes: ${video.likes}`}</Paragraph>
-            <Paragraph>{`Views: ${video.views}`}</Paragraph>
+          <Card.Actions style={styles.iconContainer}>
+            <ThumbsUpIcon color={likedVideos[video.id] ? "#5160d2" : "gray"} />
+            <Paragraph>{video.likes}</Paragraph>
+            <ViewsIcon />
+            <Paragraph>{video.views}</Paragraph>
           </Card.Actions>
         </Card>
       </TouchableWithoutFeedback>
@@ -50,19 +57,23 @@ export const VideoCard: React.FC<VideoCardProps> = ({ index }) => {
   );
 };
 
+export default VideoCard;
+
 const styles = StyleSheet.create({
   card: {
     width: width - 24,
     marginBottom: 4,
   },
-
   image: {
     width: "100%",
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
   },
-
   content: {
     marginTop: 12,
+  },
+  iconContainer: {
+    alignItems: "center",
+    padding: 12,
   },
 });
